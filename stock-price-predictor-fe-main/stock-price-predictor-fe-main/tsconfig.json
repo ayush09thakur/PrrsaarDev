@@ -1,0 +1,35 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "ignoreDeprecations": "5.0",
+    "outDir": "./dist/out-tsc",
+    "rootDir": "./src",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+
+    "sourceMap": true,
+    "types": ["node"],
+
+    "lib": ["ES2022", "DOM"],
+
+    "skipLibCheck": true
+  },
+  "rootDir": "./",
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
+}

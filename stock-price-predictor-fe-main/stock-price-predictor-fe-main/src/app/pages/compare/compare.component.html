@@ -1,0 +1,46 @@
+<div class="compare-page fade-in">
+  <div class="compare-hero">
+    <a routerLink="/" class="back-link">← Back to Dashboard</a>
+    <h1>Stock Battle Arena</h1>
+    <p>Compare multiple stocks side by side with live price, volume, AI score and smart signal.</p>
+  </div>
+
+  <div class="compare-toolbar">
+    <input [(ngModel)]="customSymbol" placeholder="Add stock e.g. INFY or MARUTI" (keyup.enter)="addSymbol()" />
+    <button (click)="addSymbol()">Add Stock</button>
+    <button class="ghost" (click)="loadCompare()">Refresh</button>
+  </div>
+
+  <div class="chips">
+    <span *ngFor="let symbol of selectedSymbols">{{ symbol }} <button (click)="removeSymbol(symbol)">×</button></span>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading comparison...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="compare-grid" *ngIf="!loading && rows.length">
+    <div class="compare-card" *ngFor="let row of rows">
+      <div class="card-top">
+        <div>
+          <h2>{{ row.displaySymbol || row.symbol }}</h2>
+          <p>{{ row.name }}</p>
+        </div>
+        <span class="signal" [class.buy]="row.signal === 'BUY'" [class.sell]="row.signal === 'SELL'">{{ row.signal }}</span>
+      </div>
+      <div class="price">{{ formatMoney(row.price) }}</div>
+      <div class="change" [class.gain]="(row.change || 0) >= 0" [class.loss]="(row.change || 0) < 0">
+        {{ row.change || 0 | number:'1.2-2' }} ({{ row.changePercent || 0 | number:'1.2-2' }}%)
+      </div>
+      <div class="ai-line"><span [style.width.%]="row.aiScore"></span></div>
+      <div class="metrics">
+        <div><span>AI Score</span><b>{{ row.aiScore }}/100</b></div>
+        <div><span>Open</span><b>{{ formatMoney(row.open) }}</b></div>
+        <div><span>High</span><b>{{ formatMoney(row.high) }}</b></div>
+        <div><span>Low</span><b>{{ formatMoney(row.low) }}</b></div>
+        <div><span>Volume</span><b>{{ formatNumber(row.volume) }}</b></div>
+        <div><span>P/E</span><b>{{ row.peRatio || '—' }}</b></div>
+      </div>
+      <a [routerLink]="['/stock', row.symbol]" class="open-link">Open Full Analysis</a>
+    </div>
+  </div>
+</div>
